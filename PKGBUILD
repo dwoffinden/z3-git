@@ -1,11 +1,12 @@
+# Maintainer: d.woffinden
 pkgname=z3-git
 pkgver=4.3.1.r0.g89c1785
-pkgrel=1
+pkgrel=3
 pkgdesc="Z3 is a high-performance theorem prover being developed at Microsoft Research"
 arch=('i686' 'x86_64')
 url="https://z3.codeplex.com/"
 license=('custom')
-depends=()
+depends=('gcc-libs')
 makedepends=('git' 'python2')
 optdepends=('python2: bindings for python2')
 conflicts=('z3-bin' 'z3-codeplex')
@@ -35,14 +36,15 @@ build() {
 package() {
   cd "$srcdir/$pkgname"
 
-  install -D src/api/z3.h "$pkgdir/include/z3.h"
-  install -D src/api/z3_api.h "$pkgdir/include/z3_api.h"
-  install -D src/api/z3_v1.h "$pkgdir/include/z3_v1.h"
-  install -D src/api/z3_macros.h "$pkgdir/include/z3_macros.h"
+  install -D src/api/z3.h "$pkgdir/usr/include/z3.h"
+  install -D src/api/z3_api.h "$pkgdir/usr/include/z3_api.h"
+  install -D src/api/z3_v1.h "$pkgdir/usr/include/z3_v1.h"
+  install -D src/api/z3_macros.h "$pkgdir/usr/include/z3_macros.h"
+  install -D src/api/c++/z3++.h "$pkgdir/usr/include/z3++.h"
   install -D build/z3 "$pkgdir/usr/bin/z3"
   install -D build/libz3.so "$pkgdir/usr/lib/libz3.so"
-  install -D build/libz3.so "$pkgdir/usr/lib/python2.7/site-packages/libz3.so"
-  install -D src/api/c++/z3++.h "$pkgdir/include/z3++.h"
+  install -d "$pkgdir/usr/lib/python2.7/site-packages/"
+  ln -s /usr/lib/libz3.so "$pkgdir/usr/lib/python2.7/site-packages/libz3.so"
   cp build/z3*.pyc "$pkgdir/usr/lib/python2.7/site-packages"
 
   install -Dm644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
