@@ -1,6 +1,6 @@
 # Maintainer: d.woffinden
 pkgname=z3-git
-pkgver=r1891.ac21ffe
+pkgver=r2636.7f6ef0b
 pkgrel=1
 pkgdesc="Z3 is a high-performance theorem prover being developed at Microsoft Research"
 arch=('i686' 'x86_64')
