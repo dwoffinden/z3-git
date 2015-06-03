@@ -1,6 +1,6 @@
 # Maintainer: d.woffinden
 pkgname=z3-git
-pkgver=r2636.7f6ef0b
+pkgver=4.4.0.r0.g7f6ef0b
 pkgrel=1
 pkgdesc="Z3 is a high-performance theorem prover being developed at Microsoft Research"
 arch=('i686' 'x86_64')
@@ -19,9 +19,7 @@ md5sums=('SKIP')
 
 pkgver() {
   cd "$pkgname"
-  # Upstream no longer has version tags, use number of revisions since the
-  # beginning of the history:
-  printf "r%s.%s" "$(git rev-list --count HEAD)" "$(git rev-parse --short HEAD)"
+  git describe --long | sed 's/z3-//;s/-/.r/;s/-/./'
 }
 
 build() {
